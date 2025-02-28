@@ -1,0 +1,113 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" xmlns="http://www.ros.org/wiki/xacro">
+
+    <!-- Gripper Base -->
+    <link name="gripper_base">
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <geometry>
+                <box size="0.35 0.05 0.05"/>
+            </geometry>
+            <material name="gray"/>
+        </visual>
+        <collision>
+            <geometry>
+                <box size="0.35 0.05 0.05"/>
+            </geometry>
+        </collision>
+        <inertial>
+            <mass value="0.1"/>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <inertia ixx="0.01" ixy="0" ixz="0" iyy="0.01" iyz="0" izz="0.01"/>
+        </inertial>
+    </link>
+
+    <!-- Gripper Finger Left -->
+    <link name="gripper_finger_left">
+        <visual>
+            <origin xyz="-0.075 0 0" rpy="0 0 0"/>
+            <geometry>
+                <box size="0.02 0.1 0.02"/>
+            </geometry>
+            <material name="orange"/>
+        </visual>
+        <collision>
+            <geometry>
+                <box size="0.02 0.1 0.02"/>
+            </geometry>
+        </collision>
+        <inertial>
+            <mass value="0.1"/>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.001"/>
+        </inertial>
+    </link>
+
+    <!-- Gripper Finger Right -->
+    <link name="gripper_finger_right">
+        <visual>
+            <origin xyz="0.075 0 0" rpy="0 0 0"/>
+            <geometry>
+                <box size="0.02 0.1 0.02"/>
+            </geometry>
+            <material name="orange"/>
+        </visual>
+        <collision>
+            <geometry>
+                <box size="0.02 0.1 0.02"/>
+            </geometry>
+        </collision>
+        <inertial>
+            <mass value="0.1"/>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.001"/>
+        </inertial>
+    </link>
+
+    <!-- Vertical Movement Joint for Gripper -->
+    <joint name="gripper_vertical_joint" type="prismatic">
+        <parent link="chassis"/>
+        <child link="gripper_base"/>
+        <origin xyz="0.25 0 0.05" rpy="0 0 1.57"/>
+        <axis xyz="0 0 1"/>
+        <limit effort="10" lower="0" upper="0.13" velocity="0.1"/>
+        <dynamics damping="0.5" friction="0.1"/>
+    </joint>
+
+    <!-- Gripper Finger Joints -->
+    <joint name="gripper_finger_left_joint" type="prismatic">
+        <parent link="gripper_base"/>
+        <child link="gripper_finger_left"/>
+        <origin xyz="-0.075 -0.1 0" rpy="0 0 0"/>
+        <axis xyz="1 0 0"/>
+        <limit effort="10" lower="0" upper="0.1" velocity="0.1"/>
+        <dynamics damping="0.5" friction="0.1"/>
+    </joint>
+
+    <joint name="gripper_finger_right_joint" type="prismatic">
+        <parent link="gripper_base"/>
+        <child link="gripper_finger_right"/>
+        <origin xyz="0.075 -0.1 0" rpy="0 0 0"/>
+        <axis xyz="1 0 0"/>
+        <limit effort="10" lower="-0.1" upper="0" velocity="0.1"/>
+        <dynamics damping="0.5" friction="0.1"/>
+    </joint>
+
+    <!-- Gazebo Simulation for Gripper -->
+    <gazebo reference="gripper_base">
+        <material>Gazebo/Gray</material>
+        <gravity>true</gravity>
+    </gazebo>
+
+    <gazebo reference="gripper_finger_left">
+        <material>Gazebo/Orange</material>
+        <gravity>true</gravity>
+    </gazebo>
+
+    <gazebo reference="gripper_finger_right">
+        <material>Gazebo/Orange</material>
+        <gravity>true</gravity>
+    </gazebo>
+
+
+</robot>
