@@ -1,6 +1,14 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro">
 
+    <xacro:macro name="robot_controller">
+        <gazebo>
+            <plugin name="gazebo_ros2_control_robot" filename="libgazebo_ros2_control.so">
+                <parameters>$(find articubot_one)/config/controller.yaml</parameters>
+            </plugin>
+        </gazebo>
+    </xacro:macro>
+
     <gazebo>
         <plugin name='back_wheel' filename='libgazebo_ros_diff_drive.so'>
 
@@ -53,6 +61,27 @@
 
 
         </plugin>
+    </gazebo>
+
+    <gazebo>
+        <plugin name="gazebo_ros_joint_state_publisher" filename="libgazebo_ros_joint_state_publisher.so">
+            <update_rate>20</update_rate>
+            <joint_name>gripper_finger_left_joint</joint_name>
+            <joint_name>gripper_vertical_joint</joint_name>
+            <joint_name>gripper_finger_right_joint</joint_name>
+        </plugin>
+        <plugin name="gazebo_ros_joint_pose_trajectory" filename="libgazebo_ros_joint_pose_trajectory.so">
+            <update_rate>20</update_rate>
+        </plugin>
+
+	<!-- Load transmission plugin -->
+    	<plugin name="transmission" filename="libgazebo_ros2_control.so">
+      	    <robotNamespace>/</robotNamespace>
+      	    <controlPeriod>0.001</controlPeriod>
+            <robotParam>articubot_one</robotParam>
+            <robotSimType>gazebo_ros_control/DefaultRobotHWSim</robotSimType>
+    	</plugin>
+	
     </gazebo>
 
 </robot>

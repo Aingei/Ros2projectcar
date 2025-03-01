@@ -44,6 +44,22 @@ def generate_launch_description():
         output='screen',
         parameters=[params]
     )
+    
+    node_controller = Node(
+        package="controller_manager",
+        executable="spawner.py",
+        arguments=[
+            "gripper_controller",
+        ],
+    )
+    
+    node_controllerpormungtie = Node(
+        package="controller_manager",
+        executable="spawner.py",
+        arguments=[
+            "joint_state_broadcaster",
+        ],
+    )
 
     rviz_config_file = os.path.join(pkg_path, 'config', '1_rviz.rviz')
     node_rviz2 = Node(

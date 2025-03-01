@@ -37,5 +37,11 @@ install(
   DESTINATION share/${PROJECT_NAME}
 )
 
+install(
+  PROGRAMS
+  controller.py
+  DESTINATION lib/${PROJECT_NAME}
+)
+
 
 ament_package()
