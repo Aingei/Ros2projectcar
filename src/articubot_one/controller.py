@@ -128,8 +128,6 @@ def saveTerminalSettings():
         return None
     return termios.tcgetattr(sys.stdin)
 
-[, ], -, =ys.stdin, termios.TCSADRAIN, old_settings)
-
 
 def vels(speed, turn):
     return "currently:\tspeed %s\tturn %s " % (speed, turn)
