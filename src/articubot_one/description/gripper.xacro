@@ -1,115 +1,189 @@
 <?xml version="1.0"?>
-<robot xmlns:xacro="http://www.ros.org/wiki/xacro" xmlns="http://www.ros.org/wiki/xacro">
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" >
 
     <!-- Gripper Base -->
     <link name="gripper_base">
         <visual>
-            <origin xyz="0 0.23 -0.05" rpy="0 0 0"/>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
             <geometry>
-                <box size="0.45 0.05 0.03"/>
+                <box size="0.35 0.05 0.05"/>
             </geometry>
             <material name="blue"/>
         </visual>
         <collision>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
             <geometry>
                 <box size="0.35 0.05 0.05"/>
             </geometry>
+            <surface>
+                <friction>
+                    <ode>
+                        <mu>2.0</mu>  <!-- Increase primary friction -->
+                        <mu2>2.0</mu2>  <!-- Increase secondary friction -->
+                    </ode>
+                </friction>
+                <contact>
+                    <ode>
+                        <restitution>0.0</restitution>  <!-- Lower the bounce factor -->
+                        <soft_cfm>0.1</soft_cfm>  <!-- Soft constraint for smooth contact -->
+                        <soft_erp>0.7</soft_erp>  <!-- Error reduction for smoother response -->
+                        <kp>1000.0</kp>  <!-- Reduce excessive force -->
+                        <kd>100.0</kd>  <!-- Damping to prevent sudden jumps -->
+                        <max_vel>0.01</max_vel>
+                    </ode>
+                </contact>
+            </surface>
         </collision>
-        <inertial>
-            <mass value="0.1"/>
+        <xacro:inertial_box mass="0.5" x="0.35" y="0.05" z="0.05" >
             <origin xyz="0 0 0" rpy="0 0 0"/>
-            <inertia ixx="0.01" ixy="0" ixz="0" iyy="0.01" iyz="0" izz="0.01"/>
-        </inertial>
+        </xacro:inertial_box>
     </link>
-
-    
 
     <!-- Gripper Finger Left -->
     <link name="gripper_finger_left">
         <visual>
-            <origin xyz="-0.095 0.38 -0.05" rpy="0 0 0"/>
+            <origin xyz="-0.075 -0.1 0" rpy="0 0 0"/>
             <geometry>
-                <box size="0.025 0.12 0.035"/>
+                <box size="0.0225 0.2 0.05"/>
             </geometry>
             <material name="blue"/>
         </visual>
         <collision>
+            <origin xyz="-0.075 -0.1 0" rpy="0 0 0"/>
             <geometry>
-                <box size="0.025 0.12 0.025"/>
+                <box size="0.0225 0.2 0.1"/>
             </geometry>
+            <surface>
+                <friction>
+                    <ode>
+                        <mu>50.0</mu>  <!-- Increase primary friction -->
+                        <mu2>50.0</mu2>  <!-- Increase secondary friction -->
+                    </ode>
+                </friction>
+                <contact>
+                    <ode>
+                        <restitution>0.0</restitution>  <!-- Lower the bounce factor -->
+                        <soft_cfm>0.1</soft_cfm>  <!-- Soft constraint for smooth contact -->
+                        <soft_erp>0.7</soft_erp>  <!-- Error reduction for smoother response -->
+                        <kp>1000.0</kp>  <!-- Reduce excessive force -->
+                        <kd>100.0</kd>  <!-- Damping to prevent sudden jumps -->
+                        <max_vel>0.01</max_vel>
+                    </ode>
+                </contact>
+            </surface>
         </collision>
-        <inertial>
-            <mass value="0.1"/>
-            <origin xyz="0 0 0" rpy="0 0 0"/>
-            <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.001"/>
-        </inertial>
+        <xacro:inertial_box mass="0.3" x="0.0225" y="0.2" z="0.05" >
+            <origin xyz="-0.075 -0.1 0" rpy="0 0 0"/>
+        </xacro:inertial_box>
     </link>
 
     <!-- Gripper Finger Right -->
     <link name="gripper_finger_right">
         <visual>
-            <origin xyz="0.095 0.38 -0.05" rpy="0 0 0"/>
+            <origin xyz="0.075 -0.10 0" rpy="0 0 0"/>
             <geometry>
-                <box size="0.025 0.12 0.025"/>
+                <box size="0.0225 0.2 0.05"/>
             </geometry>
             <material name="blue"/>
         </visual>
         <collision>
+            <origin xyz="0.075 -0.10 0" rpy="0 0 0"/>
             <geometry>
-                <box size="0.025 0.12 0.025"/>
+                <box size="0.0225 0.2 0.1"/>
             </geometry>
+            <surface>
+                <friction>
+                    <ode>
+                        <mu>50.0</mu>  <!-- Increase primary friction -->
+                        <mu2>50.0</mu2>  <!-- Increase secondary friction -->
+                    </ode>
+                </friction>
+                <contact>
+                    <ode>
+                        <restitution>0.0</restitution>  <!-- Lower the bounce factor -->
+                        <soft_cfm>0.1</soft_cfm>  <!-- Soft constraint for smooth contact -->
+                        <soft_erp>0.7</soft_erp>  <!-- Error reduction for smoother response -->
+                        <kp>1000.0</kp>  <!-- Reduce excessive force -->
+                        <kd>100.0</kd>  <!-- Damping to prevent sudden jumps -->
+                        <max_vel>0.01</max_vel>
+                    </ode>
+                </contact>
+            </surface>
         </collision>
-        <inertial>
-            <mass value="0.1"/>
-            <origin xyz="0 0 0" rpy="0 0 0"/>
-            <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.001"/>
-        </inertial>
+        <xacro:inertial_box mass="0.3" x="0.0225" y="0.2" z="0.05" >
+            <origin xyz="0.075 -0.10 0" rpy="0 0 0"/>
+        </xacro:inertial_box>
     </link>
 
     <!-- Vertical Movement Joint for Gripper -->
     <joint name="gripper_vertical_joint" type="prismatic">
         <parent link="chassis"/>
         <child link="gripper_base"/>
-        <origin xyz="0 0 0.14" rpy="0 0 1.57"/>
+        <origin xyz="0.25 0 0.05" rpy="0 0 1.57"/>
         <axis xyz="0 0 1"/>
-        <limit effort="10" lower="0" upper="0.13" velocity="0.1"/>
-        <dynamics damping="0.5" friction="0.1"/>
+        <limit effort="80" lower="0" upper="0.13" velocity="0.1"/>
+        <dynamics damping="80.0" friction="5.0"/>
     </joint>
 
     <!-- Gripper Finger Joints -->
     <joint name="gripper_finger_left_joint" type="prismatic">
         <parent link="gripper_base"/>
         <child link="gripper_finger_left"/>
-        <origin xyz="-0.075 -0.1 0" rpy="0 0 0"/>
+        <origin xyz="-0.075 0 0" rpy="0 0 0"/>
         <axis xyz="1 0 0"/>
-        <limit effort="10" lower="0" upper="0.1" velocity="0.1"/>
-        <dynamics damping="0.5" friction="0.1"/>
+        <limit effort="120" lower="0" upper="0.065" velocity="0.1"/>
+        <dynamics damping="120.0" friction="5.0"/>
     </joint>
 
     <joint name="gripper_finger_right_joint" type="prismatic">
         <parent link="gripper_base"/>
         <child link="gripper_finger_right"/>
-        <origin xyz="0.075 -0.1 0" rpy="0 0 0"/>
+        <origin xyz="0.075 0 0" rpy="0 0 0"/>
         <axis xyz="1 0 0"/>
-        <limit effort="10" lower="-0.1" upper="0" velocity="0.1"/>
-        <dynamics damping="0.5" friction="0.1"/>
+        <limit effort="120" lower="-0.065" upper="0" velocity="0.1"/>
+        <dynamics damping="120.0" friction="5.0"/>
     </joint>
 
     <!-- Gazebo Simulation for Gripper -->
     <gazebo reference="gripper_base">
         <material>Gazebo/Blue</material>
         <gravity>true</gravity>
+        <ode>
+            <solver_iterations>500</solver_iterations>  <!-- Increase solver iterations -->
+            <solver_type>quick_nonlinear</solver_type>  <!-- Adjust solver for stability -->
+        </ode>
     </gazebo>
 
     <gazebo reference="gripper_finger_left">
         <material>Gazebo/Blue</material>
         <gravity>true</gravity>
+        <ode>
+            <solver_iterations>500</solver_iterations>  <!-- Increase solver iterations -->
+            <solver_type>quick_nonlinear</solver_type>  <!-- Adjust solver for stability -->
+        </ode>
+        <!-- <plugin name="gazebo_gripper" filename="libgazebo_ros_vacuum_gripper.so">
+            <always_on>true</always_on>
+            <topic>gripper/grasp</topic>
+        </plugin> -->
     </gazebo>
 
     <gazebo reference="gripper_finger_right">
         <material>Gazebo/Blue</material>
         <gravity>true</gravity>
+        <ode>
+            <solver_iterations>500</solver_iterations>  <!-- Increase solver iterations -->
+            <solver_type>quick_nonlinear</solver_type>  <!-- Adjust solver for stability -->
+        </ode>
+        <!-- <plugin name="gazebo_gripper" filename="libgazebo_ros_vacuum_gripper.so">
+            <always_on>true</always_on>
+            <topic>gripper/grasp</topic>
+        </plugin> -->
     </gazebo>
-
+    <gazebo>
+        <plugin name="contact_plugin" filename="libgazebo_ros_contact.so">
+            <update_rate>1000</update_rate>
+            <contact_topic>/gripper_contacts</contact_topic>
+        </plugin>
+    </gazebo>
 
 </robot>

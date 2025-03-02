@@ -7,12 +7,13 @@
     <xacro:include filename="lidar.xacro" />
     <xacro:include filename="gripper.xacro" />
     <!-- <xacro:include filename="gripperja.xacro" /> -->
-    <!-- <xacro:include filename="arm_tr.xacro" /> -->
-    <!-- <xacro:include filename="gripper_tr.xacro" />  -->
+    <xacro:include filename="arm_tr.xacro" />
+    <xacro:include filename="gripper_tr.xacro" /> 
     <!-- <xacro:include filename="gripper.xacro" /> -->
      <!-- <xacro:include filename="testgripper.xacro" /> -->
 
-    <!-- <ros2_control name="gripper_robot_gazebo_system" type="system">
+
+    <ros2_control name="gripper_robot_gazebo_system" type="system">
         <hardware>
             <plugin>gazebo_ros2_control/GazeboSystem</plugin>
         </hardware>
@@ -20,5 +21,5 @@
         <xacro:gripper1_tr/>
         <xacro:gripper2_tr/>
     </ros2_control>
-    <xacro:robot_controller/> -->
+    <xacro:robot_controller/>
 </robot>

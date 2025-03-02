@@ -28,7 +28,7 @@ def generate_launch_description():
     gazebo = IncludeLaunchDescription(
                 PythonLaunchDescriptionSource([os.path.join(
                     get_package_share_directory('gazebo_ros'), 'launch', 'gazebo.launch.py')]),
-                launch_arguments={'world': os.path.join(get_package_share_directory(package_name), 'worlds', 'projhome.world')}.items()  # Update to use your world file
+                launch_arguments={'world': os.path.join(get_package_share_directory(package_name), 'worlds', 'boxwithhome.world')}.items()  # Update to use your world file
     )
 
     # Run the spawner node from the gazebo_ros package
@@ -65,6 +65,15 @@ def generate_launch_description():
         ]
     )
 
+    controller_manager = Node(
+        package="controller_manager",
+        executable="spawner",
+        arguments=[
+            "joint_state_broadcaster",
+            "gripper_controller",
+        ],
+    )
+
 
 
     # Launch them all!
@@ -74,4 +83,5 @@ def generate_launch_description():
         spawn_entity,
         # slam,
         twist_mux,
+        controller_manager,
     ])
